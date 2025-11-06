@@ -7,35 +7,63 @@
   <style>
     body { 
       font-family: 'Fira Code', monospace; 
-      max-width: 800px; 
-      margin: 40px auto; 
+      max-width: 1200px; 
+      margin: 20px auto; 
       padding: 0 20px;
       line-height: 1.7;
       background: #111;
       color: #eee;
     }
     h1, h2, h3 { font-weight: 400; }
+	h1 { color: #ff8c42; }   /* bright orange for main title */
+	h2 { color: #4cb4ff; }   /* vivid blue for section headers */
+	h3 { color: #ffa766; }   /* softer orange for project titles */
     a { color: #4cb4ff; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .project { margin-bottom: 30px; }
+	
+	.emails {
+	display: flex;               /* enable flex layout */
+	flex-direction: column;      /* default: stack vertically */
+	gap: 10px;                   /* space between emails */
+	max-width: 600px;            /* optional width limit */
+	margin-top: 10px;
+	}
+
+	/* On wider screens, arrange emails horizontally */
+	@media (min-width: 600px) {
+	.emails {
+    flex-direction: row;       /* horizontal layout */
+    justify-content: space-between; /* evenly spaced */
+	}
+	}
+
+.emails p {
+  margin: 0;
+}
   </style>
 </head>
 <body>
   <h1>Haydn Content</h1>
-  <p>Audio Programmer • Game Developer • Engine / Systems Work</p>
+  <h2>Audio Programmer • Game Developer • Engine & Systems Work</h2>
 
   <h2>Projects</h2>
 
   <div class="project">
-    <h3>Projects</h3>
-    <p>blah blah.</p>
+    <h3>Shape Showdown</h3>
+    <p>stuff</p>
+	<h3>Bingus Engine</h3>
+	<p>stuff</p>
     <a href="#">View on GitHub</a>
   </div>
 
   <h2>Contact</h2>
-  <p>Email:
-  Main - haydncontent@gmail.com
-  School - haydn.content@digipen.edu</p>
+  <p>Email:</p>
+  <div class="emails">
+  <p>Main - haydncontent@gmail.com</p>
+  <p>School - haydn.content@digipen.edu</p>
+  </div>
+  
 
 </body>
 </html>
