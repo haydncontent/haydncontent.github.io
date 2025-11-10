@@ -15,55 +15,284 @@
       color: #eee;
     }
     h1, h2, h3 { font-weight: 400; }
-	h1 { color: #ff8c42; }   /* bright orange for main title */
-	h2 { color: #4cb4ff; }   /* vivid blue for section headers */
-	h3 { color: #ffa766; }   /* softer orange for project titles */
-    a { color: #4cb4ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .project { margin-bottom: 30px; }
-	
-	.emails {
-	display: flex;               /* enable flex layout */
-	flex-direction: column;      /* default: stack vertically */
-	gap: 10px;                   /* space between emails */
-	max-width: 600px;            /* optional width limit */
-	margin-top: 10px;
-	}
+    h1 { 
+      color: #ff8c42;
+      animation: fadeInDown 0.8s ease-out;
+    }
+    h2 { 
+      color: #4cb4ff;
+      animation: fadeInLeft 0.6s ease-out;
+    }
+    h3 { color: #ffa766; }
+    a { 
+      color: #4cb4ff; 
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover { 
+      color: #ff8c42;
+      text-decoration: underline; 
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Project Cards with Dropdown */
+    .project {
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1a1a1a;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .project:hover {
+      border-color: #4cb4ff;
+      box-shadow: 0 4px 20px rgba(76, 180, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .project-header {
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    
+    .project-header:hover h3 {
+      color: #4cb4ff;
+    }
+    
+    .dropdown-arrow {
+      font-size: 20px;
+      color: #4cb4ff;
+      transition: transform 0.3s ease;
+    }
+    
+    .project.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .project-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 20px;
+    }
+    
+    .project.open .project-content {
+      max-height: 500px;
+      padding: 0 20px 20px 20px;
+    }
+    
+    .project-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    
+    .tag {
+      background: #2a2a2a;
+      color: #4cb4ff;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      border: 1px solid #333;
+    }
+    
+    /* Email Section */
+    .emails {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+      margin-top: 10px;
+    }
 
-	/* On wider screens, arrange emails horizontally */
-	@media (min-width: 600px) {
-	.emails {
-    flex-direction: row;       /* horizontal layout */
-    justify-content: space-between; /* evenly spaced */
-	}
-	}
+    @media (min-width: 600px) {
+      .emails {
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+    }
 
-.emails p {
-  margin: 0;
-}
+    .email-box {
+      margin: 0;
+      padding: 15px;
+      background: #1a1a1a;
+      border-radius: 5px;
+      border: 1px solid #333;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      flex: 1;
+    }
+    
+    .email-box:hover {
+      border-color: #ff8c42;
+      transform: translateY(-2px);
+    }
+    
+    .email-box.copied {
+      border-color: #4cb4ff;
+      background: #1a3a4a;
+    }
+    
+    .email-label {
+      display: block;
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    
+    .email-address {
+      display: block;
+      color: #4cb4ff;
+      font-size: 14px;
+    }
+    
+    .copy-feedback {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4cb4ff;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .email-box.copied .copy-feedback {
+      opacity: 1;
+    }
+    
+    /* Glitch effect on title */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .glitch:hover::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      text-shadow: -2px 0 #ff8c42;
+      top: 0;
+      color: #4cb4ff;
+      overflow: hidden;
+      animation: glitch-anim 0.3s infinite;
+    }
+    
+    @keyframes glitch-anim {
+      0% { clip-path: inset(40% 0 50% 0); }
+      20% { clip-path: inset(92% 0 1% 0); }
+      40% { clip-path: inset(43% 0 1% 0); }
+      60% { clip-path: inset(25% 0 58% 0); }
+      80% { clip-path: inset(54% 0 7% 0); }
+      100% { clip-path: inset(58% 0 43% 0); }
+    }
   </style>
 </head>
 <body>
-  <h1>Haydn Content</h1>
+  <h1 class="glitch" data-text="Haydn Content">Haydn Content</h1>
+  <a href="https://github.com/haydncontent">View at haydncontent on GitHub</a>
   <h2>Audio Programmer • Game Developer • Engine & Systems Work</h2>
 
   <h2>Projects</h2>
 
   <div class="project">
-    <h3>Shape Showdown</h3>
-    <p>stuff</p>
-	<h3>Bingus Engine</h3>
-	<p>stuff</p>
-    <a href="#">View on GitHub</a>
+    <div class="project-header" onclick="toggleProject(this)">
+      <h3>Shape Showdown</h3>
+      <span class="dropdown-arrow">▼</span>
+    </div>
+    <div class="project-content">
+      <p>A fast-paced twin-stick shooter game featuring upgrade mechanics and scaling difficulty.</p>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">Game Dev</span>
+        <span class="tag">Multiplayer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-header" onclick="toggleProject(this)">
+      <h3>Bingus Engine</h3>
+      <span class="dropdown-arrow">▼</span>
+    </div>
+    <div class="project-content">
+      <p>Custom game engine built using OpenGL with focus on audio integration and real-time performance.</p>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">Engine Dev</span>
+        <span class="tag">Audio</span>
+      </div>
+    </div>
   </div>
 
   <h2>Contact</h2>
-  <p>Email:</p>
   <div class="emails">
-  <p>Main - haydncontent@gmail.com</p>
-  <p>School - haydn.content@digipen.edu</p>
+    <div class="email-box" onclick="copyEmail(this, 'haydncontent@gmail.com')">
+      <span class="email-label">Main</span>
+      <span class="email-address">haydncontent@gmail.com</span>
+      <span class="copy-feedback">✓ Copied!</span>
+    </div>
+    <div class="email-box" onclick="copyEmail(this, 'haydn.content@digipen.edu')">
+      <span class="email-label">School</span>
+      <span class="email-address">haydn.content@digipen.edu</span>
+      <span class="copy-feedback">✓ Copied!</span>
+    </div>
   </div>
-  
 
+  <script>
+    function toggleProject(header) {
+      const project = header.parentElement;
+      project.classList.toggle('open');
+    }
+    
+    function copyEmail(element, email) {
+      navigator.clipboard.writeText(email).then(() => {
+        element.classList.add('copied');
+        setTimeout(() => {
+          element.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy email. Please copy manually: ' + email);
+      });
+    }
+  </script>
 </body>
 </html>
