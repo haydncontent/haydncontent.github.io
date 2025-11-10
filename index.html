@@ -110,8 +110,16 @@
     }
     
     .project.open .project-content {
-      max-height: 500px;
+      max-height: 800px;
       padding: 0 20px 20px 20px;
+    }
+    
+    .project-video {
+      width: 100%;
+      max-width: 640px;
+      margin: 15px 0;
+      border-radius: 5px;
+      border: 1px solid #333;
     }
     
     .project-tags {
@@ -239,6 +247,10 @@
     </div>
     <div class="project-content">
       <p>A fast-paced twin-stick shooter game featuring upgrade mechanics and scaling difficulty.</p>
+      <video class="project-video" controls>
+        <source src="shape-showdown-trailer.mp4" type="video/mp4">
+        Your browser doesn't support video playback.
+      </video>
       <div class="project-tags">
         <span class="tag">C++</span>
         <span class="tag">Game Dev</span>
